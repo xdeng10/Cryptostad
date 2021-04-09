@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar';
+import HomePage from './components/HomePage/HomePage';
+import About from './components/About/About';
+import Contact from './components/Contact/Contact';
+import CryptoMarket from './components/CryptoMarket/CryptoMarket';
+import Signin from './components/Signin/Signin';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <NavBar />
+          <Switch>
+            <Route path="/" exact component={HomePage}></Route>
+            <Route path="/Home" component={HomePage}></Route>
+            <Route path="/About" component={About}></Route>
+            <Route path="/Contact" component={Contact}></Route>
+            <Route path="/CryptoMarket" component={CryptoMarket}></Route>
+            <Route path="/Signin" component={Signin}></Route>
+
+          </Switch>
+        </div>
+      </Router>
+
+    );
+
+  }
 }
 
 export default App;

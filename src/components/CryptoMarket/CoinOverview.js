@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
+import './MarketOverview';
 
+class CoinOverview extends Component {
 
-const CoinOverview = ({ image, name, symbol, price, volume, priceChangePercent, marketcap }) => {
+    render() {
+        const { image, name, symbol, price, volume, priceChangePercent, marketcap } = this.props;
 
+        return (
+            <div className='coin-row'>
+                <div className="coin-logo">
+                    <img src={image} alt='Cryptocurrency Logo' />
+                </div>
+                <div className="coin-name">
+                    <h3>{name}</h3>
+                </div>
+                <div className="coin-sym">
+                    <p>{symbol}</p>
+                </div>
 
-        return(
-            <div className='coin-container flex justify-center'>
-                <div className='coin-row flex flex-row-ns justify-start items-center h3 w-80 bb'>
-                    <div className='coin flex items-center w-30 pr4'>
-                        <img className='h2 w2 mr2' src={image} alt='Cryptocurrency Logo' />
-                        <h3 className='w5'>{ name }</h3>
-                        <p className='ttu tc ml2'>{ symbol }</p>
-                    </div>
-                    <div className='coin-data flex tc justify-between w-70'>
-                        <p className='coin-price w-10'>${price.toFixed(2)}</p>
-                        <p className='coin-volume w-40'>{volume.toLocaleString()}</p>
-                        <p className={priceChangePercent >= 0 ? 'green w-10' : 'red w-10' }>{priceChangePercent.toFixed(2)}%</p>
-                        <p className='market-cap w-40'>${marketcap.toLocaleString()}</p>
-
-                    </div>
+                <div className="coin-price">
+                    <p>${Number.parseFloat(price).toFixed(2)}</p>
+                </div>
+                <div className="coin-volume">
+                    <p>{(volume) ? volume.toLocaleString() : "-"}</p>
+                </div>
+                <div className="coin-change">
+                    <p className={priceChangePercent >= 0 ? 'price-green' : 'price-red'}>
+                        {(priceChangePercent) ? `${Number.parseFloat(priceChangePercent).toFixed(2)}%`:"-"}
+                    </p>
+                </div>
+                <div className="coin-market-cap">
+                    <p>{(marketcap) ? `$${marketcap.toLocaleString()}` : "-"}</p>
                 </div>
             </div>
         );
-    
+    }
 }
+
 
 
 export default CoinOverview;

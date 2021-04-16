@@ -1,3 +1,108 @@
+/* Search Bar */
+
+.search-bar{
+    width: 20em;
+    height: 2.5em;
+    border-radius: 0.5em;
+}
+
 .search-bar:focus{
     outline: none !important;
+}
+
+
+/* Cryptocurrency Market*/
+.market-container{
+    display: flex;
+    justify-content: center;
+}
+
+.market-table{
+    display: table;
+    width: 85%;
+}
+
+
+/* COIN INFORMATION */
+
+/*Addition of different width should be 100%*/
+.coin-row{
+    display: table-row;
+    width: 100%;
+    text-align: center;
+    --logo-width: 5%;
+    --name-width: 15%;
+    --sym-width: 5%;
+    --price-width: 10%;
+    --volume-width: 15%;
+    --change-width: 5%;
+    --market-cap-width: 15%;
+}
+
+.coin-row > div{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.coin-heading > div{
+    border-bottom-style: double;
+    
+}
+
+.coin-logo{
+    width: var(--logo-width);
+}
+
+.coin-logo > img{
+    width: 2em;
+    height: 2em;
+}
+
+.coin-name{
+    width: var(--name-width);
+}
+
+.coin-sym{
+    width: var(--sym-width);
+}
+
+.coin-price{
+    width: var(--price-width);
+}
+
+.coin-volume{
+    width: var(--volume-width);
+}
+
+.coin-change{
+    width: var(--change-width);
+}
+.coin-change .price-green{
+    color: green;
+}
+.coin-change .price-red{
+    color: red;
+}
+.coin-market-cap{
+    width: var(--market-cap-width);
+}
+
+
+
+/* Extra Features*/
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.loading-row{
+    width: 100%;
+    display: table-row;
+    text-align: center;
+    
+    justify-content: center;
+}
+
+.loading > p{
+    justify-content: center;
 }

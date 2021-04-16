@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './CryptoMarket.css';
 import MarketOverview from './MarketOverview';
 
 
-const CryptoMarket = () => {
-
-
-        return(
+class CryptoMarket extends Component {
+    render() {
+        return (
             <main>
                 <h1>CryptoMarket</h1>
                 <MarketOverview />
             </main>
         );
-    
+    }
 }
 
 

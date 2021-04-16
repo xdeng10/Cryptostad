@@ -9,7 +9,6 @@ import CryptoMarket from './components/CryptoMarket/CryptoMarket';
 import Signin from './components/Signin/Signin';
 
 
-
 class App extends Component {
   render() {
     return (

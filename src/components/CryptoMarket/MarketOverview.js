@@ -3,13 +3,15 @@ import axios from 'axios';
 import './MarketOverview.css';
 import CoinOverview from './CoinOverview';
 
+/* Loading circle image */
 const Loader = () => (
-    <div class="divLoader">
-        <svg class="svgLoader" viewBox="0 0 100 100" width="2em" height="2em">
+    <div className="divLoader">
+        <svg className="svgLoader" viewBox="0 0 100 100" width="2em" height="2em">
             <path stroke="none" d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50" fill="#51CACC" transform="rotate(179.719 50 51)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 51;360 50 51" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></path>
         </svg>
     </div>
 );
+
 
 
 class MarketOverview extends Component {
@@ -17,14 +19,26 @@ class MarketOverview extends Component {
         super(props);
         this.state = {
             coins: [],
+            pageNumber: 1,
+            morePage: true,
+            prevY: 0,
             search: '',
             order: 'market_cap_desc',
-            loading: true
+            loading: false
         };
     }
 
     setCoins(coins) {
         this.setState({ coins: coins });
+    }
+    setPageNumber(pageNumber) {
+        this.setState({ pageNumber: pageNumber });
+    }
+    setMorePage(morePage) {
+        this.setState({ morePage: morePage });
+    }
+    setPrevY(prevY) {
+        this.setState({ prevY: prevY });
     }
     setSearch(search) {
         this.setState({ search: search });
@@ -36,25 +50,14 @@ class MarketOverview extends Component {
         this.setState({ loading: loading });
     }
 
-    handleOrder(category) {
-        switch (category) {
-            case 'market-cap':
-                this.setOrder((this.state.order === 'market_cap_desc') ? 'market_cap_asc' : 'market_cap_desc');
-                break;
-            case 'volume':
-                this.setOrder((this.state.order === 'volume_desc') ? 'volume_asc' : 'volume_desc');
-                break;
-            default:
-                this.setOrder('market_cap_asc');
-        };
-    }
-
-
     fetchMarketList() {
         this.setLoading(true);
-        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=100&page=1&sparkline=false`)
+        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=10&page=${this.state.pageNumber}&sparkline=false`)
             .then(res => {
-                this.setCoins(res.data);
+                if (res.data === []) {
+                    this.setMorePage(false);
+                }
+                this.setCoins([...this.state.coins, ...res.data]);
                 this.setLoading(false);
             }).catch((error) => {
                 alert(error);
@@ -78,15 +81,95 @@ class MarketOverview extends Component {
         });
     }
 
+    waitloading() {
+        return (
+            (this.state.loading) ?
+                (
+                    <div
+                        className='coin-row'
+                        ref={loadingRef => (this.loadingRef = loadingRef)}
+                    >
+                        <div className="coin-logo"><Loader /></div>
+                        <div className="coin-name"><Loader /></div>
+                        <div className="coin-sym"><Loader /></div>
+                        <div className="coin-price"><Loader /></div>
+                        <div className="coin-volume"><Loader /></div>
+                        <div className="coin-change"><Loader /></div>
+                        <div className="coin-market-cap"><Loader /></div>
+                    </div>
+                )
+                :
+                (
+                    <div
+                        className='coin-row'
+                        ref={loadingRef => (this.loadingRef = loadingRef)}
+                    >
+                        <div className="coin-logo"></div>
+                        <div className="coin-name"></div>
+                        <div className="coin-sym"></div>
+                        <div className="coin-price"></div>
+                        <div className="coin-volume"></div>
+                        <div className="coin-change"></div>
+                        <div className="coin-market-cap"></div>
+                    </div>
+                )
+        );
+    }
+
+
+    handleOrder(category) {
+        switch (category) {
+            case 'market-cap':
+                this.setOrder((this.state.order === 'market_cap_desc') ? 'market_cap_asc' : 'market_cap_desc');
+                break;
+            case 'volume':
+                this.setOrder((this.state.order === 'volume_desc') ? 'volume_asc' : 'volume_desc');
+                break;
+            default:
+                this.setOrder('market_cap_asc');
+        };
+    }
+
+
+    handleObserver(entities, observer) {
+        const y = entities[0].boundingClientRect.y;
+        if (this.state.prevY > y) {
+            this.setPageNumber(this.state.pageNumber + 1);
+            this.fetchMarketList();
+        }
+        this.setState({ prevY: y });
+    }
+
+
     componentDidMount() {
         this.fetchMarketList();
+
+        if (this.state.morePage) {
+            var options = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 1.0
+            };
+
+            this.observer = new IntersectionObserver( //Listen to changes in target elements
+                this.handleObserver.bind(this),
+                options
+            );
+            this.observer.observe(this.loadingRef);
+        }
     }
+
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.order !== prevState.order) {
+            this.setCoins([]);
+            this.setPageNumber(1);
+            this.setPrevY(0);
             this.fetchMarketList();
         }
+
     }
+
 
     render() {
         return (
@@ -119,24 +202,10 @@ class MarketOverview extends Component {
                                 <p>Market Cap &#8597;</p>
                             </div>
                         </div>
-                        {
-                            this.state.loading ?
-                                (
-                                    <div className='coin-row'>
-                                        <div className="coin-logo"><Loader /></div>
-                                        <div className="coin-name"><Loader /></div>
-                                        <div className="coin-sym"><Loader /></div>
-                                        <div className="coin-price"><Loader /></div>
-                                        <div className="coin-volume"><Loader /></div>
-                                        <div className="coin-change"><Loader /></div>
-                                        <div className="coin-market-cap"><Loader /></div>
-                                    </div>
-                                )
-                                :
-                                (
-                                    this.getFilteredCoins()
-                                )
-                        }
+
+                        {this.getFilteredCoins()}
+
+                        {this.waitloading()}
                     </div>
                 </div>
             </div>
@@ -144,5 +213,5 @@ class MarketOverview extends Component {
     }
 }
 
-
 export default MarketOverview;
+

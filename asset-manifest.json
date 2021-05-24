@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/CryptoExchange/static/css/main.0969ac3f.chunk.css",
-    "main.js": "/CryptoExchange/static/js/main.5dbb4c3a.chunk.js",
-    "main.js.map": "/CryptoExchange/static/js/main.5dbb4c3a.chunk.js.map",
+    "main.js": "/CryptoExchange/static/js/main.b4148db3.chunk.js",
+    "main.js.map": "/CryptoExchange/static/js/main.b4148db3.chunk.js.map",
     "runtime-main.js": "/CryptoExchange/static/js/runtime-main.ab9429a9.js",
     "runtime-main.js.map": "/CryptoExchange/static/js/runtime-main.ab9429a9.js.map",
     "static/css/2.fe359a49.chunk.css": "/CryptoExchange/static/css/2.fe359a49.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.fe359a49.chunk.css",
     "static/js/2.b9463700.chunk.js",
     "static/css/main.0969ac3f.chunk.css",
-    "static/js/main.5dbb4c3a.chunk.js"
+    "static/js/main.b4148db3.chunk.js"
   ]
 }

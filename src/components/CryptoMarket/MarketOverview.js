@@ -52,7 +52,7 @@ class MarketOverview extends Component {
 
     fetchMarketList() {
         this.setLoading(true);
-        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=10&page=${this.state.pageNumber}&sparkline=false`)
+        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=25&page=${this.state.pageNumber}&sparkline=false`)
             .then(res => {
                 if (res.data === []) {
                     this.setMorePage(false);
@@ -133,11 +133,16 @@ class MarketOverview extends Component {
 
     handleObserver(entities, observer) {
         const y = entities[0].boundingClientRect.y;
+        console.log(entities[0]);
+        console.log("prevY: " + this.state.prevY + " Y: " + y);
         if (this.state.prevY > y) {
             this.setPageNumber(this.state.pageNumber + 1);
             this.fetchMarketList();
+            console.log("Load more: " + this.state.pageNumber);
         }
-        this.setState({ prevY: y });
+        this.setPrevY(y);
+        console.log("prevY: " + this.state.prevY + " Y: " + y);
+
     }
 
 
@@ -167,7 +172,6 @@ class MarketOverview extends Component {
             this.setPrevY(0);
             this.fetchMarketList();
         }
-
     }
 
 

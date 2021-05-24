@@ -42,6 +42,7 @@
     --volume-width: 15%;
     --change-width: 5%;
     --market-cap-width: 15%;
+    margin-bottom: 1rem;
 }
 
 .coin-row > div{
@@ -66,6 +67,12 @@
 
 .coin-name{
     width: var(--name-width);
+}
+
+
+.coin-name, .coin-name:hover, .coin-name:focus, .coin-name:active{
+    text-decoration: none;
+    color: inherit;
 }
 
 .coin-sym{

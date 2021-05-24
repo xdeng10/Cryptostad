@@ -88,10 +88,6 @@ class CoinInfoSummary extends Component {
             <table className="coin-info-summary">
                 <tbody>
                     <tr>
-                        <td>Last Updated {this.getTimeZone(coin_market_data)}</td>
-                        <td>{this.getCoinLastUpdate(coin_market_data)}</td>
-                    </tr>
-                    <tr>
                         <td>24h Price Change</td>
                         <td>{this.getCoinPriceChange(coin_market_data)}</td>
                     </tr>
@@ -122,6 +118,10 @@ class CoinInfoSummary extends Component {
                     <tr>
                         <td>Total Supply</td>
                         <td>{this.getCoinTotalSupply(coin_market_data)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last Updated {this.getTimeZone(coin_market_data)}</td>
+                        <td>{this.getCoinLastUpdate(coin_market_data)}</td>
                     </tr>
                 </tbody>
             </table>

@@ -18,12 +18,12 @@ class App extends Component {
           <NavBar />
           <Switch>
             <Route path="/" exact component={CryptoMarket}></Route>
-            <Route path="/Home" component={HomePage}></Route>
-            <Route path="/About" component={About}></Route>
-            <Route path="/Contact" component={Contact}></Route>
-            <Route path="/CryptoMarket" component={CryptoMarket}></Route>
-            <Route path="/CoinPage" component={CoinPage}></Route>
-            <Route path="/Signin" component={Signin}></Route>
+            <Route path="/home" component={HomePage}></Route>
+            <Route path="/about" component={About}></Route>
+            <Route path="/contact" component={Contact}></Route>
+            <Route path="/cryptomarket" component={CryptoMarket}></Route>
+            <Route path="/coin/:cryptoid" component={CoinPage}></Route>
+            <Route path="/signin" component={Signin}></Route>
 
           </Switch>
         </div>

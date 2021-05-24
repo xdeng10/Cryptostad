@@ -70,6 +70,7 @@ class MarketOverview extends Component {
         }).map(coin => {
             return (
                 <CoinOverview key={coin.id}
+                    id={coin.id}
                     name={coin.name}
                     image={coin.image}
                     price={coin.current_price}
@@ -131,16 +132,11 @@ class MarketOverview extends Component {
 
     handleObserver(entities, observer) {
         const y = entities[0].boundingClientRect.y;
-        console.log(entities[0]);
-        console.log("prevY: " + this.state.prevY + " Y: " + y);
         if (this.state.prevY > y) {
             this.setPageNumber(this.state.pageNumber + 1);
             this.fetchMarketList();
-            console.log("Load more: " + this.state.pageNumber);
         }
         this.setPrevY(y);
-        console.log("prevY: " + this.state.prevY + " Y: " + y);
-
     }
 
 
@@ -153,8 +149,6 @@ class MarketOverview extends Component {
                 rootMargin: "0px",
                 threshold: 1.0
             };
-
-            console.log(this);
 
             this.observer = new IntersectionObserver( //Listen to changes in target elements
                 this.handleObserver.bind(this),

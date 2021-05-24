@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './MarketOverview';
+import { Link } from 'react-router-dom';
+
+
 
 class CoinOverview extends Component {
 
     render() {
-        const { image, name, symbol, price, volume, priceChangePercent, marketcap } = this.props;
+        const { id, name, image, symbol, price, volume, priceChangePercent, marketcap } = this.props;
         const logoAlt = name + " logo";
 
         return (
@@ -12,15 +15,15 @@ class CoinOverview extends Component {
                 <div className="coin-logo">
                     <img src={image} alt={logoAlt} />
                 </div>
-                <div className="coin-name">
+                <Link className="coin-name" to={`/coin/${id}`}>
                     <h3>{name}</h3>
-                </div>
+                </Link>
                 <div className="coin-sym">
                     <p>{symbol}</p>
                 </div>
 
                 <div className="coin-price">
-                    <p>${Number.parseFloat(price).toFixed(2)}</p>
+                    <p>{(price) ? `${Number.parseFloat(price).toFixed(2)}` : "NaN"}</p>
                 </div>
                 <div className="coin-volume">
                     <p>{(volume) ? volume.toLocaleString() : "-"}</p>

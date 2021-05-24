@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './CoinPage.css';
 import CoinInfoSummary from './CoinInfoSummary';
+import { withRouter } from 'react-router';
+
 
 
 
@@ -9,7 +11,7 @@ class MarketOverview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            coinID: 'bitcoin',
+            coinID: '',
             currency: 'cad',
             coin: {},
             coin_market_data: {},
@@ -38,7 +40,6 @@ class MarketOverview extends Component {
         axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`)
             .then(res => {
                 this.setCoin(res.data);
-                console.log(this.state.coin);
                 this.setCoin_market_data(this.state.coin.market_data)
                 this.setLoading(false);
             }).catch((error) => {
@@ -59,13 +60,14 @@ class MarketOverview extends Component {
     }
 
     getCoinSymbol() {
-        return this.state.coin.symbol && this.state.coin.symbol.toUpperCase();
+        return (this.state.coin.symbol) ? (this.state.coin.symbol && this.state.coin.symbol.toUpperCase()) : "-";
     }
 
     getCoinCurrPrice() {
-        return this.state.coin_market_data.current_price &&
-            this.state.coin_market_data.current_price.cad &&
-            this.convertNumToPrice(this.state.coin_market_data.current_price.cad);
+        let current_price = this.state.coin_market_data.current_price &&
+        this.state.coin_market_data.current_price.cad;
+
+        return (current_price) ? this.convertNumToPrice(current_price) : "NaN";
     }
 
     getPriceChange24() {
@@ -81,12 +83,13 @@ class MarketOverview extends Component {
 
 
     componentDidMount() {
-        this.fetchCoinInfo();
+        this.setCoinID(this.props.match.params.cryptoid);
     }
 
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.order !== prevState.order) {
+        if (this.state.coinID !== prevState.coinID) {
+            this.fetchCoinInfo();
         }
     }
 
@@ -135,8 +138,4 @@ class MarketOverview extends Component {
     }
 }
 
-export default MarketOverview;
-
-
-
-
+export default withRouter(MarketOverview);

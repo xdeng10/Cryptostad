@@ -8,7 +8,7 @@
 
 }
 
-.coin-info-summary > tbody > tr:first-child{
+.coin-info-summary > tbody > tr:last-child{
     color: rgba(0, 0, 128, 0.473);
     font-style: italic;
 }

@@ -87,7 +87,6 @@ class MarketOverview extends Component {
                 (
                     <div
                         className='coin-row'
-                        ref={loadingRef => (this.loadingRef = loadingRef)}
                     >
                         <div className="coin-logo"><Loader /></div>
                         <div className="coin-name"><Loader /></div>
@@ -102,7 +101,6 @@ class MarketOverview extends Component {
                 (
                     <div
                         className='coin-row'
-                        ref={loadingRef => (this.loadingRef = loadingRef)}
                     >
                         <div className="coin-logo"></div>
                         <div className="coin-name"></div>
@@ -155,6 +153,8 @@ class MarketOverview extends Component {
                 rootMargin: "0px",
                 threshold: 1.0
             };
+
+            console.log(this);
 
             this.observer = new IntersectionObserver( //Listen to changes in target elements
                 this.handleObserver.bind(this),
@@ -210,6 +210,13 @@ class MarketOverview extends Component {
                         {this.getFilteredCoins()}
 
                         {this.waitloading()}
+
+                        <div
+                            ref={loadingRef => (this.loadingRef = loadingRef)}
+                        >
+                            <span>&nbsp;</span>
+                        </div>
+
                     </div>
                 </div>
             </div>

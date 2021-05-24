@@ -5,11 +5,12 @@ class CoinOverview extends Component {
 
     render() {
         const { image, name, symbol, price, volume, priceChangePercent, marketcap } = this.props;
+        const logoAlt = name + " logo";
 
         return (
             <div className='coin-row'>
                 <div className="coin-logo">
-                    <img src={image} alt='Cryptocurrency Logo' />
+                    <img src={image} alt={logoAlt} />
                 </div>
                 <div className="coin-name">
                     <h3>{name}</h3>

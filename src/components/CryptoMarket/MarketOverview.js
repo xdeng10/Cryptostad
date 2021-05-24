@@ -175,12 +175,12 @@ class MarketOverview extends Component {
         return (
             <div>
                 <div>
-                    <form className='mb3'>
-                        <h2>Search a currency</h2>
+                    <h1>CryptoMarket</h1>
+                    <form className='search-bar-form'>
                         <input
                             className='search-bar'
                             type="text"
-                            placeholder="Search"
+                            placeholder=" Search a currency"
                             onChange={(event) => this.setSearch(event.target.value)}
                         />
                     </form>
@@ -194,7 +194,7 @@ class MarketOverview extends Component {
                             <div className="coin-price"><p>Price</p></div>
                             <div className="coin-volume cursor-pointer"
                                 onClick={() => this.handleOrder("volume")}>
-                                <p>Volume(24h) &#8597;</p>
+                                <p>Volume &#8597;</p>
                             </div>
                             <div className="coin-change"><p>Change(24h)</p></div>
                             <div className="coin-market-cap cursor-pointer"

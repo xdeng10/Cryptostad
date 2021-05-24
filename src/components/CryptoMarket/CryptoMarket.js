@@ -7,7 +7,6 @@ class CryptoMarket extends Component {
     render() {
         return (
             <main>
-                <h1>CryptoMarket</h1>
                 <MarketOverview />
             </main>
         );

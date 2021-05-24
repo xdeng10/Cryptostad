@@ -1,5 +1,10 @@
 /* Search Bar */
 
+.search-bar-form{
+    margin-bottom: 1rem;
+
+}
+
 .search-bar{
     width: 20em;
     height: 2.5em;

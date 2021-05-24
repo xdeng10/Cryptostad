@@ -1,0 +1,46 @@
+.coin-info-summary{
+    border: 1px solid rgba(0, 0, 128, 0.171);
+    background: rgba(0, 0, 128, 0.041);
+    width: 30%;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+
+}
+
+.coin-info-summary > tbody > tr:first-child{
+    color: rgba(0, 0, 128, 0.473);
+    font-style: italic;
+}
+
+.coin-info-summary > tbody > tr > td{
+    padding: 1rem 0;
+    border-bottom: 3px solid white;
+}
+
+
+.coin-info-summary > tbody > tr > td:first-child{
+    text-align: left;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.coin-info-summary > tbody > tr > td:last-child{
+    text-align: right;
+}
+
+.coin-info-graph{
+    border: 1px solid rgba(0, 0, 128, 0.171);
+    margin-left: 1rem;
+    width: 70%;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+}
+
+
+.coin-info-summary .price-green{
+    color: green;
+}
+.coin-info-summary .price-red{
+    color: red;
+}

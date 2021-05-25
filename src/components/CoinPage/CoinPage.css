@@ -9,7 +9,7 @@
 .coin-header{
     display: flex;
     justify-content: space-between;
-    width: 85%;
+    width: 90%;
     height: 5rem;
     align-items: center;
 }
@@ -69,7 +69,7 @@
 
 .coin-subheader{
     display: flex;
-    width: 85%;
+    width: 90%;
     align-items: center;
 }
 
@@ -98,7 +98,7 @@
 .coin-info{
     display: flex;
     justify-content: space-between;
-    width: 85%;
+    width: 90%;
     align-items: center;
     
 }

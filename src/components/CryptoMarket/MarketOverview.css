@@ -39,8 +39,8 @@
     --name-width: 15%;
     --sym-width: 5%;
     --price-width: 10%;
-    --volume-width: 15%;
     --change-width: 5%;
+    --volume-width: 15%;
     --market-cap-width: 15%;
     margin-bottom: 1rem;
 }
@@ -82,11 +82,6 @@
 .coin-price{
     width: var(--price-width);
 }
-
-.coin-volume{
-    width: var(--volume-width);
-}
-
 .coin-change{
     width: var(--change-width);
 }
@@ -96,6 +91,12 @@
 .coin-change .price-red{
     color: red;
 }
+
+.coin-volume{
+    width: var(--volume-width);
+}
+
+
 .coin-market-cap{
     width: var(--market-cap-width);
 }

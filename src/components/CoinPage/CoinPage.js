@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './CoinPage.css';
 import CoinInfoSummary from './CoinInfoSummary';
+import CoinChart from './CoinChart';
 import { withRouter } from 'react-router';
 
 
 
 
-class MarketOverview extends Component {
+class CoinPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +55,15 @@ class MarketOverview extends Component {
     convertNumToPerc(x) {
         return Number.parseFloat(x).toFixed(2);
     }
-    
+
+    incDecArrow(x) {
+        if (x >= 0) {
+            return <span>&#9650;</span>;
+        } else {
+            return <span>&#9660;</span>;
+        }
+    }
+
     getCoinLogoAlt() {
         return this.state.coin.name + " Logo";
     }
@@ -65,7 +74,7 @@ class MarketOverview extends Component {
 
     getCoinCurrPrice() {
         let current_price = this.state.coin_market_data.current_price &&
-        this.state.coin_market_data.current_price.cad;
+            this.state.coin_market_data.current_price.cad;
 
         return (current_price) ? this.convertNumToPrice(current_price) : "NaN";
     }
@@ -75,7 +84,9 @@ class MarketOverview extends Component {
         let priceChange24Perc = this.state.coin_market_data.price_change_percentage_24h;
 
         if (priceChange24 && priceChange24Perc) {
-            return <span className={priceChange24 >= 0 ? 'coin-price-change price-green' : 'coin-price-change price-red'}> {this.convertNumToPerc(priceChange24Perc)}%</span>;
+            return <span className={priceChange24 >= 0 ? 'coin-price-change price-green' : 'coin-price-change price-red'}>
+                {this.incDecArrow(priceChange24)} {this.convertNumToPerc(priceChange24Perc)}%
+                    </span>;
         } else {
             return <span className="coin-price-change"> - </span>;
         }
@@ -118,17 +129,14 @@ class MarketOverview extends Component {
                 </div>
                 <div className="coin-info-container">
                     <div className="coin-info">
-                        <CoinInfoSummary 
-                            currency = {this.state.currency}
-                            coin_market_data = {this.state.coin_market_data}
+                        <CoinInfoSummary
+                            currency={this.state.currency}
+                            coin_market_data={this.state.coin_market_data}
                         />
-
-                        <div className="coin-info-graph">
-                            sff
-                        </div>
+                        <CoinChart
+                            coinID = {this.props.match.params.cryptoid}
+                        />
                     </div>
-
-
                 </div>
 
 
@@ -138,4 +146,4 @@ class MarketOverview extends Component {
     }
 }
 
-export default withRouter(MarketOverview);
+export default withRouter(CoinPage);

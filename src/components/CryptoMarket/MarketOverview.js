@@ -190,11 +190,11 @@ class MarketOverview extends Component {
                             <div className="coin-name"><h3>Name</h3></div>
                             <div className="coin-sym"><p>SYM</p></div>
                             <div className="coin-price"><p>Price</p></div>
+                            <div className="coin-change"><p>Change(24h)</p></div>
                             <div className="coin-volume cursor-pointer"
                                 onClick={() => this.handleOrder("volume")}>
                                 <p>Volume &#8597;</p>
                             </div>
-                            <div className="coin-change"><p>Change(24h)</p></div>
                             <div className="coin-market-cap cursor-pointer"
                                 onClick={() => this.handleOrder("market-cap")}>
                                 <p>Market Cap &#8597;</p>

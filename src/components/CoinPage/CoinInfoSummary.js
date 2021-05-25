@@ -13,6 +13,14 @@ class CoinInfoSummary extends Component {
         return Number.parseFloat(x).toFixed(2);
     }
 
+    incDecArrow(x) {
+        if (x >= 0) {
+            return <span>&#9650;</span>;
+        } else {
+            return <span>&#9660;</span>;
+        }
+    }
+
     getTimeZone(coin_market_data) {
         let last_updated_data = coin_market_data.last_updated && coin_market_data.last_updated.toLocaleString();
         let time = new Date(last_updated_data);
@@ -30,7 +38,11 @@ class CoinInfoSummary extends Component {
         let priceChange24Perc = coin_market_data.price_change_percentage_24h;
 
         if (priceChange24 && priceChange24Perc) {
-            return <span className={priceChange24 >= 0 ? 'price-green' : 'price-red'}>{this.convertNumToPrice(priceChange24)}$ <br /> {this.convertNumToPerc(priceChange24Perc)}%</span>;
+            return <span className={priceChange24 >= 0 ? 'price-green' : 'price-red'}>
+                {this.incDecArrow(priceChange24)} {this.convertNumToPrice(priceChange24)}$
+                    <br />
+                {this.incDecArrow(priceChange24Perc)} {this.convertNumToPerc(priceChange24Perc)}%
+                </span>;
         } else {
             return <span> - <br /> -</span>;
         }
@@ -47,7 +59,11 @@ class CoinInfoSummary extends Component {
         let mc24Perc = coin_market_data.market_cap_change_percentage_24h;
 
         if (mc24 && mc24Perc) {
-            return <span className={mc24 >= 0 ? 'price-green' : 'price-red'}> {this.convertNumToPrice(mc24)}$ <br /> {this.convertNumToPerc(mc24Perc)}%</span>;
+            return <span className={mc24 >= 0 ? 'price-green' : 'price-red'}>
+                {this.incDecArrow(mc24)} {this.convertNumToPrice(mc24)}$
+                    <br />
+                {this.incDecArrow(mc24Perc)} {this.convertNumToPerc(mc24Perc)}%
+                    </span>;
         } else {
             return <span> - <br /> - </span>;
         }
@@ -112,7 +128,7 @@ class CoinInfoSummary extends Component {
                         <td>{this.getCoinTotalVolume(coin_market_data)}</td>
                     </tr>
                     <tr>
-                        <td>Circulating Supply Supply</td>
+                        <td>Circulating Supply</td>
                         <td>{this.getCoinCircSupply(coin_market_data)}</td>
                     </tr>
                     <tr>
@@ -130,4 +146,5 @@ class CoinInfoSummary extends Component {
 }
 
 export default CoinInfoSummary;
+
 

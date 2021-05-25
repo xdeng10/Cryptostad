@@ -25,14 +25,15 @@ class CoinOverview extends Component {
                 <div className="coin-price">
                     <p>{(price) ? `${Number.parseFloat(price).toFixed(2)}` : "NaN"}</p>
                 </div>
-                <div className="coin-volume">
-                    <p>{(volume) ? volume.toLocaleString() : "-"}</p>
-                </div>
                 <div className="coin-change">
                     <p className={priceChangePercent >= 0 ? 'price-green' : 'price-red'}>
                         {(priceChangePercent) ? `${Number.parseFloat(priceChangePercent).toFixed(2)}%`:"-"}
                     </p>
                 </div>
+                <div className="coin-volume">
+                    <p>{(volume) ? volume.toLocaleString() : "-"}</p>
+                </div>
+
                 <div className="coin-market-cap">
                     <p>{(marketcap) ? `$${marketcap.toLocaleString()}` : "-"}</p>
                 </div>

@@ -5,15 +5,52 @@
     align-content: center;
 }
 
-.graph-header{
-    width: 100%;
-    height: 10%;
+
+.chart-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding-bottom: 0.5rem;
 }
+
+.time-interval-selector{
+    border-radius: 0.5rem;
+    background: rgba(0, 9, 128, 0.10);
+    padding: 2px 2px;
+}
+
+.time-interval-selector > button{
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.3rem 0.7rem;
+    background: transparent;
+    color: rgba(0, 9, 128, 0.90);
+    font-weight:600;
+}
+.time-interval-selector > button:hover{
+    background: rgba(255, 255, 255, 0.50);
+    cursor: pointer;
+}
+.time-interval-selector > .white{
+    background: rgb(255, 255, 255);
+}
+.time-interval-selector > .white:hover{
+    background: rgb(255, 255, 255);
+}
+
 
 .history-chart{
     width: 100%;
     height: 90%;
-    margin-bottom: 1rem;
+}
+
+
+.price-fluctuation .price-green{
+    color: green;
+}
+.price-fluctuation .price-red{
+    color: red;
 }
 
 

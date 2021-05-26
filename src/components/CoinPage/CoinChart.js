@@ -16,6 +16,7 @@ class CoinChart extends Component {
             coinChartData1: [],
             coinChartData7: [],
             coinChartData30: [],
+            timeInterval: "1",
             chartLoading: true
         };
     }
@@ -30,6 +31,9 @@ class CoinChart extends Component {
         this.setState({ coinChartData1: data1 });
         this.setState({ coinChartData7: data7 });
         this.setState({ coinChartData30: data30 });
+    }
+    setTimeInterval(timeInterval) {
+        this.setState({ timeInterval: timeInterval });
     }
     setChartLoading(chartLoading) {
         this.setState({ chartLoading: chartLoading });
@@ -49,12 +53,46 @@ class CoinChart extends Component {
             }).catch((error) => {
                 alert(error);
             });
-        
+
     }
 
     convertNumToPrice(x) {
         return Number.parseFloat(x).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+
+    convertNumToPerc(x) {
+        return Number.parseFloat(x).toFixed(2);
+    }
+
+    incDecArrow(x) {
+        if (x >= 0) {
+            return <span>&#9650;</span>;
+        } else {
+            return <span>&#9660;</span>;
+        }
+    }
+
+    
+
+    getCoinPriceChange() {
+        console.log(this.props.coin_market_data);
+        
+        let priceChange24 = this.props.coin_market_data.price_change_24h_in_currency && this.props.coin_market_data.price_change_24h_in_currency.cad;
+        let priceChange24Perc = this.props.coin_market_data.price_change_percentage_24h;
+
+        if (priceChange24 && priceChange24Perc) {
+            return <span className={priceChange24 >= 0 ? 'price-green' : 'price-red'}>
+                {this.incDecArrow(priceChange24)} {this.convertNumToPrice(priceChange24)}$
+                &nbsp;&nbsp;   
+                {this.incDecArrow(priceChange24Perc)} {this.convertNumToPerc(priceChange24Perc)}%
+                </span>;
+        } else {
+            return <span> - <br /><br /> -</span>;
+        }
+
+    }
+
 
     waitChartLoading() {
         return <img width="10%" src={ThreeDots} alt="Loading..." />;
@@ -66,7 +104,7 @@ class CoinChart extends Component {
 
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.coinID !== prevState.coinID) {
+        if (this.state.timeInterval !== prevState.timeInterval) {
         }
     }
 
@@ -79,11 +117,19 @@ class CoinChart extends Component {
                 :
                 <div className="coin-info-graph">
                     <div className="chart-header">
-                        dfsdfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
+                        <div className="time-interval-selector">
+                            <button className="white">24h</button>
+                            <button>1w</button>
+                            <button>1m</button>
+                            <button>1y</button>
                         </div>
+                        <div className="price-fluctuation">
+                            {this.getCoinPriceChange()}
+                        </div>
+                    </div>
                     <HistoryChart
-                        coinID={this.state.coinID} 
-                        chartPriceData1={this.state.coinChartData1.prices}
+                        coinID={this.state.coinID}
+                        chartPriceData1={this.state.coinChartData1}
                     />
                 </div>
         );

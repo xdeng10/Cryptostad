@@ -43,6 +43,7 @@ class CoinPage extends Component {
                 this.setCoin(res.data);
                 this.setCoin_market_data(this.state.coin.market_data)
                 this.setLoading(false);
+                console.log(res.data);
             }).catch((error) => {
                 alert(error);
             });
@@ -135,6 +136,7 @@ class CoinPage extends Component {
                         />
                         <CoinChart
                             coinID = {this.props.match.params.cryptoid}
+                            coin_market_data={this.state.coin_market_data}
                         />
                     </div>
                 </div>

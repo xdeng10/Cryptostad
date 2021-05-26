@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/CryptoExchange/static/css/main.0969ac3f.chunk.css",
-    "main.js": "/CryptoExchange/static/js/main.b4148db3.chunk.js",
-    "main.js.map": "/CryptoExchange/static/js/main.b4148db3.chunk.js.map",
-    "runtime-main.js": "/CryptoExchange/static/js/runtime-main.ab9429a9.js",
-    "runtime-main.js.map": "/CryptoExchange/static/js/runtime-main.ab9429a9.js.map",
+    "main.css": "/CryptoExchange/static/css/main.293d66ce.chunk.css",
+    "main.js": "/CryptoExchange/static/js/main.fca80839.chunk.js",
+    "main.js.map": "/CryptoExchange/static/js/main.fca80839.chunk.js.map",
+    "runtime-main.js": "/CryptoExchange/static/js/runtime-main.f509e7dc.js",
+    "runtime-main.js.map": "/CryptoExchange/static/js/runtime-main.f509e7dc.js.map",
     "static/css/2.fe359a49.chunk.css": "/CryptoExchange/static/css/2.fe359a49.chunk.css",
-    "static/js/2.b9463700.chunk.js": "/CryptoExchange/static/js/2.b9463700.chunk.js",
-    "static/js/2.b9463700.chunk.js.map": "/CryptoExchange/static/js/2.b9463700.chunk.js.map",
-    "static/js/3.6c5e0b58.chunk.js": "/CryptoExchange/static/js/3.6c5e0b58.chunk.js",
-    "static/js/3.6c5e0b58.chunk.js.map": "/CryptoExchange/static/js/3.6c5e0b58.chunk.js.map",
+    "static/js/2.97c6d273.chunk.js": "/CryptoExchange/static/js/2.97c6d273.chunk.js",
+    "static/js/2.97c6d273.chunk.js.map": "/CryptoExchange/static/js/2.97c6d273.chunk.js.map",
+    "static/js/3.ba218437.chunk.js": "/CryptoExchange/static/js/3.ba218437.chunk.js",
+    "static/js/3.ba218437.chunk.js.map": "/CryptoExchange/static/js/3.ba218437.chunk.js.map",
     "index.html": "/CryptoExchange/index.html",
     "static/css/2.fe359a49.chunk.css.map": "/CryptoExchange/static/css/2.fe359a49.chunk.css.map",
-    "static/css/main.0969ac3f.chunk.css.map": "/CryptoExchange/static/css/main.0969ac3f.chunk.css.map",
-    "static/js/2.b9463700.chunk.js.LICENSE.txt": "/CryptoExchange/static/js/2.b9463700.chunk.js.LICENSE.txt",
-    "static/media/coinLogo.0662a067.png": "/CryptoExchange/static/media/coinLogo.0662a067.png"
+    "static/css/main.293d66ce.chunk.css.map": "/CryptoExchange/static/css/main.293d66ce.chunk.css.map",
+    "static/js/2.97c6d273.chunk.js.LICENSE.txt": "/CryptoExchange/static/js/2.97c6d273.chunk.js.LICENSE.txt",
+    "static/media/coinLogo.0662a067.png": "/CryptoExchange/static/media/coinLogo.0662a067.png",
+    "static/media/three-dots.b0504d96.svg": "/CryptoExchange/static/media/three-dots.b0504d96.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ab9429a9.js",
+    "static/js/runtime-main.f509e7dc.js",
     "static/css/2.fe359a49.chunk.css",
-    "static/js/2.b9463700.chunk.js",
-    "static/css/main.0969ac3f.chunk.css",
-    "static/js/main.b4148db3.chunk.js"
+    "static/js/2.97c6d273.chunk.js",
+    "static/css/main.293d66ce.chunk.css",
+    "static/js/main.fca80839.chunk.js"
   ]
 }

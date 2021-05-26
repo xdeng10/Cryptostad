@@ -17,9 +17,9 @@ class About extends Component {
                 <div className="menu-container v-mid w-80 tr">
                     <Link className="page-name" to="/cryptomarket" title="CryptoMarket">Crypto Market</Link>
                     <Link className="page-name" to="/about" title="About">About us</Link>
-                    <Link className="page-name" to="/contact" title="Contact">Contact</Link>
+                    <Link className="page-name" to="/portfolio" title="Portfolio">Portfolio</Link>
 
-                    <Link className="page-name signin-button" to="/Signin" title="signin">Sign in</Link>
+                    <Link className="page-name signin-button" to="/signin" title="signin">Sign in</Link>
                 </div>
             </nav>
         );

@@ -1,57 +1,65 @@
-.signin-container{
+.signup-container{
     margin: 5rem 1rem;
     
 }
 
-.signin-container > h1{
+.signup-container > h1{
     color: rgb(0, 0, 128);
     margin-bottom: 2rem;
 }
 
-.signin-form-container{
+.signup-form-container{
     margin: auto;
-    padding: 2rem 3rem 1rem 3rem;
     border: 1px solid rgb(0, 0, 128);
     border-radius: 1rem;
     box-shadow: 3px 6px rgba(0, 0, 128, 0.432);
     width: 30rem;
 }
 
-.signin-form fieldset{
-    border: none;
+.signup-form{
+    margin: 2rem 3rem 1rem 3rem;
+
 }
 
-.signin-form label{
+.signup-credential-container{
+    display: flex;
+}
+
+.signup-credential-container > div:first-child{
+    margin-right: 0.5rem;
+}
+.signup-credential-container > div:last-child{
+    margin-left: 0.5rem;
+}
+
+.signup-form fieldset{
+    border: none;
+    text-align: left;
+}
+
+.signup-form label{
     color: rgba(0, 0, 128, 0.74);
+    display: inline-block;
     margin-bottom: 5px;
 }
 
-.signin-form input{
+.signup-form input{
     width: 100%;
     margin-bottom: 1rem;
     border: 2px solid rgba(146, 146, 146, 0.541);
     border-radius: 5px;
     height: 3rem;
     padding: 0 1rem;
+    box-sizing: border-box;
 }
 
-.signin-form input:focus{
+.signup-form input:focus{
     outline-color: rgba(0, 0, 128, 0.74);
 }
 
-.input-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.forgotPsw-link{
-    text-decoration: none;
-    color: rgb(122, 122, 122);
-    font-weight: 700;
-}
 
-.signin-form > .signin-button{
+.signup-form > .signup-button{
     background: rgba(0, 0, 128, 0.74);
     color: white;
     border: none;
@@ -63,24 +71,25 @@
     margin-bottom: 1rem;
 }
 
-.signin-form > .signin-button:hover{
+.signup-form > .signup-button:hover{
     cursor: pointer;
     border: 2px solid rgba(0, 0, 128, 0.74);
+    background-color: white;
     color: rgba(0, 0, 128, 0.74);
 }
 
 
-.new-signup{
+.signin-redirect{
     width: 100%;
     text-align: left;
     margin-top: 1rem;
 }
 
-.new-signup > .new-signup-link{
+.signin-redirect > .signin-redirect-link{
     text-decoration: none;
     font-weight: 700;
 }
 
-.new-signup > .new-signup-link:active{
+.signin-redirect > .signin-redirect-link:active{
     color: blue;
 }

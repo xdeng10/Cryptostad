@@ -116,9 +116,10 @@ class HistoryChart extends Component {
                     tooltip:{
                         caretSize: 0,
                         callbacks:{
-                            label: function(context) {
-                                var value = context.parsed.y;
-                                return `$${Number.parseFloat(value).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+                            label: function(tooltipItem) {
+
+                                console.log(tooltipItem);
+                                return `${tooltipItem.dataset.label} $${tooltipItem.formattedValue}`;
                             }
                         }
                     }

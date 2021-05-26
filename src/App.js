@@ -18,6 +18,7 @@ class App extends Component {
           <NavBar />
           <Switch>
             <Route path="/" exact component={CryptoMarket}></Route>
+            <Route path="/CryptoExchange" component={CryptoMarket}></Route>
             <Route path="/home" component={HomePage}></Route>
             <Route path="/about" component={About}></Route>
             <Route path="/contact" component={Contact}></Route>

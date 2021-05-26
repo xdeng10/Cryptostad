@@ -50,6 +50,20 @@
     padding: 0.5rem 1rem;
 }
 
+.add-watchlist{
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 9, 128, 0.907);;
+    background: rgba(0, 9, 128, 0.307);
+    color: white;
+}
+
+.add-watchlist:hover{
+    cursor: pointer;
+    background: rgba(0, 9, 128, 0.707);
+
+}
+
 
 .coin-title .price-green{
     color: green;
@@ -102,6 +116,5 @@
     justify-content: space-between;
     width: 90%;
     align-items: center;
-    
 }
 

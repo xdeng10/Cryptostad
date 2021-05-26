@@ -13,10 +13,12 @@ class CoinChart extends Component {
         this.state = {
             coinID: this.props.coinID,
             currency: 'cad',
-            coinChartData1: [],
-            coinChartData7: [],
-            coinChartData30: [],
-            timeInterval: "1",
+            coinChartData1d: [],
+            coinChartData1w: [],
+            coinChartData1m: [],
+            coinChartData1y: [],
+            coinChartDataMax: [],
+            timeInterval: "1d",
             chartLoading: true
         };
     }
@@ -27,10 +29,12 @@ class CoinChart extends Component {
     setCurrency(currency) {
         this.setState({ currency: currency });
     }
-    setCoinChartData(data1, data7, data30) {
-        this.setState({ coinChartData1: data1 });
-        this.setState({ coinChartData7: data7 });
-        this.setState({ coinChartData30: data30 });
+    setCoinChartData(data1d, data1w, data1m, data1y, dataMax) {
+        this.setState({ coinChartData1d: data1d });
+        this.setState({ coinChartData1w: data1w });
+        this.setState({ coinChartData1m: data1m });
+        this.setState({ coinChartData1y: data1y });
+        this.setState({ coinChartDataMax: dataMax });
     }
     setTimeInterval(timeInterval) {
         this.setState({ timeInterval: timeInterval });
@@ -42,24 +46,28 @@ class CoinChart extends Component {
 
     fetchCoinChart() {
         this.setChartLoading(true);
-        const requestChart1 = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=1`);
-        const requestChart7 = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=7`);
-        const requestChart30 = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=30`);
+        const requestChart1d = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=1`);
+        const requestChart1w = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=7`);
+        const requestChart1m = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=30`);
+        const requestChart1y = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=365`);
+        const requestChartMax = axios.get(`https://api.coingecko.com/api/v3/coins/${this.state.coinID}/market_chart?vs_currency=${this.state.currency}&days=max`);
 
-        axios.all([requestChart1, requestChart7, requestChart30])
+        axios.all([requestChart1d, requestChart1w, requestChart1m, requestChart1y, requestChartMax])
             .then((res) => {
-                this.setCoinChartData(res[0].data, res[1].data, res[2].data);
+                this.setCoinChartData(res[0].data, res[1].data, res[2].data, res[3].data, res[4].data);
                 this.setChartLoading(false);
             }).catch((error) => {
                 alert(error);
             });
+    }
 
+    waitChartLoading() {
+        return <img width="10%" src={ThreeDots} alt="Loading..." />;
     }
 
     convertNumToPrice(x) {
         return Number.parseFloat(x).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
 
     convertNumToPerc(x) {
         return Number.parseFloat(x).toFixed(2);
@@ -73,39 +81,116 @@ class CoinChart extends Component {
         }
     }
 
-    
-
     getCoinPriceChange() {
-        console.log(this.props.coin_market_data);
-        
-        let priceChange24 = this.props.coin_market_data.price_change_24h_in_currency && this.props.coin_market_data.price_change_24h_in_currency.cad;
-        let priceChange24Perc = this.props.coin_market_data.price_change_percentage_24h;
-
-        if (priceChange24 && priceChange24Perc) {
-            return <span className={priceChange24 >= 0 ? 'price-green' : 'price-red'}>
-                {this.incDecArrow(priceChange24)} {this.convertNumToPrice(priceChange24)}$
-                &nbsp;&nbsp;   
-                {this.incDecArrow(priceChange24Perc)} {this.convertNumToPerc(priceChange24Perc)}%
-                </span>;
-        } else {
-            return <span> - <br /><br /> -</span>;
+        let interval = this.props.coin_market_data.price_change_24h_in_currency;
+        let intervalPerc = this.props.coin_market_data.price_change_percentage_24h
+        switch (this.state.timeInterval) {
+            case "1d":
+                interval = this.props.coin_market_data.price_change_24h_in_currency;
+                intervalPerc = this.props.coin_market_data.price_change_percentage_24h;
+                break;
+            case "1w":
+                interval = this.props.coin_market_data.price_change_percentage_7d_in_currency;
+                intervalPerc = this.props.coin_market_data.price_change_percentage_7d;
+                break;
+            case "1m":
+                interval = this.props.coin_market_data.price_change_percentage_30d_in_currency;
+                intervalPerc = this.props.coin_market_data.price_change_percentage_30d;
+                break;
+            case "1y":
+                interval = this.props.coin_market_data.price_change_percentage_1y_in_currency;
+                intervalPerc = this.props.coin_market_data.price_change_percentage_1y;
+                break;
+            case "max":
+                interval = false;
+                intervalPerc = false;
+                break;
+            default:
+                interval = this.props.coin_market_data.price_change_24h_in_currency;
+                intervalPerc = this.props.coin_market_data.price_change_percentage_24h;
         }
 
+        let priceChange = interval && interval.cad;
+        let priceChangePerc = intervalPerc;
+
+        if (priceChange && priceChangePerc) {
+            return <span className={priceChange >= 0 ? 'price-green' : 'price-red'}>
+                {this.incDecArrow(priceChange)} {this.convertNumToPrice(priceChange)}$
+                &nbsp;&nbsp;
+                {this.incDecArrow(priceChangePerc)} {this.convertNumToPerc(priceChangePerc)}%
+                </span>;
+        } else {
+            return <span> - &nbsp;&nbsp;  -</span>;
+        }
     }
 
+    getIntervalChartData() {
+        switch (this.state.timeInterval) {
+            case "1d":
+                return this.state.coinChartData1d;
+            case "1w":
+                return this.state.coinChartData1w;
+            case "1m":
+                return this.state.coinChartData1m;
+            case "1y":
+                return this.state.coinChartData1y;
+            case "max":
+                return this.state.coinChartDataMax;
+            default:
+                return this.state.coinChartData1d;
+        }
+    }
 
-    waitChartLoading() {
-        return <img width="10%" src={ThreeDots} alt="Loading..." />;
+    getFluctuationColor() {
+        let interval = this.props.coin_market_data.price_change_24h_in_currency;
+        switch (this.state.timeInterval) {
+            case "1d":
+                interval = this.props.coin_market_data.price_change_24h_in_currency;
+                break;
+            case "1w":
+                interval = this.props.coin_market_data.price_change_percentage_7d_in_currency;
+                break;
+            case "1m":
+                interval = this.props.coin_market_data.price_change_percentage_30d_in_currency;
+                break;
+            case "1y":
+                interval = this.props.coin_market_data.price_change_percentage_1y_in_currency;
+                break;
+            case "max":
+                interval = false;
+                break;
+            default:
+                interval = this.props.coin_market_data.price_change_24h_in_currency;
+        }
+
+        let priceChange = interval && interval.cad;
+
+        if (priceChange < 0) {
+            return "red";
+        } else {
+            return "green";
+        }
+    }
+
+    getTimeUnit() {
+        switch (this.state.timeInterval) {
+            case "1d":
+                return "hour";
+            case "1w":
+                return "day";
+            case "1m":
+                return "day";
+            case "1y":
+                return "month";
+            case "max":
+                return "month";
+            default:
+                return "hour";
+        }
     }
 
     componentDidMount() {
         this.fetchCoinChart();
-    }
-
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.timeInterval !== prevState.timeInterval) {
-        }
     }
 
     render() {
@@ -118,10 +203,31 @@ class CoinChart extends Component {
                 <div className="coin-info-graph">
                     <div className="chart-header">
                         <div className="time-interval-selector">
-                            <button className="white">24h</button>
-                            <button>1w</button>
-                            <button>1m</button>
-                            <button>1y</button>
+                            <button
+                                onClick={() => this.setTimeInterval("1d")}
+                                className={(this.state.timeInterval === "1d" ? "white" : "")}>
+                                24h
+                            </button>
+                            <button
+                                onClick={() => this.setTimeInterval("1w")}
+                                className={(this.state.timeInterval === "1w" ? "white" : "")}>
+                                1w
+                            </button>
+                            <button
+                                onClick={() => this.setTimeInterval("1m")}
+                                className={(this.state.timeInterval === "1m" ? "white" : "")}>
+                                1m
+                            </button>
+                            <button
+                                onClick={() => this.setTimeInterval("1y")}
+                                className={(this.state.timeInterval === "1y" ? "white" : "")}>
+                                1y
+                            </button>
+                            <button
+                                onClick={() => this.setTimeInterval("max")}
+                                className={(this.state.timeInterval === "max" ? "white" : "")}>
+                                max
+                            </button>
                         </div>
                         <div className="price-fluctuation">
                             {this.getCoinPriceChange()}
@@ -129,7 +235,9 @@ class CoinChart extends Component {
                     </div>
                     <HistoryChart
                         coinID={this.state.coinID}
-                        chartPriceData1={this.state.coinChartData1}
+                        chartPriceData={this.getIntervalChartData()}
+                        fluctuationColor={this.getFluctuationColor()}
+                        timeUnit={this.getTimeUnit()}
                     />
                 </div>
         );
@@ -137,6 +245,4 @@ class CoinChart extends Component {
 }
 
 export default CoinChart;
-
-//https://www.createwithdata.com/react-chartjs-dashboard/
 

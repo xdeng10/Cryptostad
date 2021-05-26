@@ -6,8 +6,6 @@ import CoinChart from './CoinChart';
 import { withRouter } from 'react-router';
 
 
-
-
 class CoinPage extends Component {
     constructor(props) {
         super(props);
@@ -43,7 +41,6 @@ class CoinPage extends Component {
                 this.setCoin(res.data);
                 this.setCoin_market_data(this.state.coin.market_data)
                 this.setLoading(false);
-                console.log(res.data);
             }).catch((error) => {
                 alert(error);
             });
@@ -93,18 +90,15 @@ class CoinPage extends Component {
         }
     }
 
-
     componentDidMount() {
         this.setCoinID(this.props.match.params.cryptoid);
     }
-
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.coinID !== prevState.coinID) {
             this.fetchCoinInfo();
         }
     }
-
 
     render() {
         return (
@@ -118,7 +112,7 @@ class CoinPage extends Component {
                             {this.getPriceChange24()}
                         </div>
                         <div>
-                            Add to Watchlist
+                            <button className="add-watchlist">&#x1F514; Add to Watchlist</button>                            
                         </div>
                     </div>
                 </div>

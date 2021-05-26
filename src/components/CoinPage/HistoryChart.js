@@ -3,8 +3,6 @@ import { Chart, registerables } from 'chart.js';
 import 'chartjs-adapter-moment';
 
 
-
-
 class HistoryChart extends Component {
 
     constructor(props) {
@@ -12,72 +10,60 @@ class HistoryChart extends Component {
         this.chartRef = React.createRef();
     }
 
-    formatPriceData(data) {
-        return data.map(el => {
-            return {
-                //x: moment(el[0]).format('HH:mm'),
-                x: el[0],
-                y: el[1].toFixed(2),
-            }
-        })
-    }
-
     getTimeData(data) {
         return data.map(el => el[0]);
     }
 
-    getPriceData(data) {
-        return data.map(el => el[1].toFixed(2));
+    getValueData(data) {
+        return data.map(el => parseFloat(el[1]).toFixed(2));
     }
 
     getVolumeYMax(){
-        return Math.max(...this.props.chartPriceData1.total_volumes.map(el => el[1]));
+        return Math.max(...this.props.chartPriceData.total_volumes.map(el => el[1]));
     }
 
     getPriceYMax(){
-        return Math.max(...this.props.chartPriceData1.prices.map(el => el[1]));
+        return Math.max(...this.props.chartPriceData.prices.map(el => el[1]));
     }
 
     getPriceYMin(){
-        return Math.min(...this.props.chartPriceData1.prices.map(el => el[1]));
+        return Math.min(...this.props.chartPriceData.prices.map(el => el[1]));
     }
 
     convertNumToPrice(x) {
         return Number.parseFloat(x).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-
-    componentDidMount() {
-        Chart.register(...registerables);
-
+    createHistoryChart(){
         this.myChart = new Chart(this.chartRef.current, {
-
             data: {
-                labels: this.getTimeData(this.props.chartPriceData1.prices),
-                datasets: [{
+                labels: this.getTimeData(this.props.chartPriceData.prices),
+                datasets: [
+                {
                     label: "Price",
-                    data: this.getPriceData(this.props.chartPriceData1.prices),
+                    data: this.getValueData(this.props.chartPriceData.prices),
                     type: 'line',
                     
-                    backgroundColor: '#fff',
-                    borderColor: 'rgba(0, 0, 80, 0.91)',
+                    backgroundColor: `${this.props.fluctuationColor}`,
+                    borderColor: `${this.props.fluctuationColor}`,
                     borderWidth: 1,
                     pointRadius: 0,
                     pointHitRadius: 10,
-                    pointHoverRadius: 5,
-                    pointHoverBorderColor: 'rgba(0, 0, 80, 0.31)',
+                    pointHoverRadius: 7,
+                    pointHoverBorderColor: 'rgba(255, 255, 255, 0.51)',
                     pointHoverBorderWidth: '5',
-                    pointHoverBackgroundColor: 'rgba(0, 0, 80, 0.91)',
-
+                    pointHoverBackgroundColor: `${this.props.fluctuationColor}`,
                 },
                 {
                     label: "Volume",
-                    data: this.getPriceData(this.props.chartPriceData1.total_volumes),
+                    data: this.getValueData(this.props.chartPriceData.total_volumes),
                     type: 'bar',
+
                     backgroundColor: 'rgba(0, 0, 80, 0.30)',
                     hoverBackgroundColor:'rgba(0, 0, 80, 0.90)', 
                     yAxisID: 'volume-y-axis',
-                    barThickness: 5,
+                    barThickness: 4,
+                    barPercentage: 1,
                 },
                 ]
             },
@@ -85,15 +71,17 @@ class HistoryChart extends Component {
                 scales: {
                     x: {
                         ticks: {
-                            maxTicksLimit: 10,
+                            maxTicksLimit: 12,
                         },
                         grid: {
                             display: false,
                         },
                         type: 'time',
+                        
                         time: {
-                            unit: 'hour'
+                            unit: `${this.props.timeUnit}`,
                         },
+                        
                     },
                     y: {
                         ticks: {
@@ -102,9 +90,9 @@ class HistoryChart extends Component {
                             }
                         },
                         suggestedMin: `${this.getPriceYMin() - ((this.getPriceYMax() - this.getPriceYMin())*0.15)}`,
+                        suggestedMax: `${this.getPriceYMax() + ((this.getPriceYMax() - this.getPriceYMin())*0.05)}`,
                     },
                     'volume-y-axis': {
-
                         position: 'right',
                         grid: {
                             display: false,
@@ -140,10 +128,20 @@ class HistoryChart extends Component {
                     intersect: true,
                 },
             },
-
-
         });
+    }
 
+
+    componentDidMount() {
+        Chart.register(...registerables);
+        this.createHistoryChart();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.chartPriceData !== prevProps.chartPriceData) {
+            this.myChart.destroy();
+            this.createHistoryChart();
+        }
     }
 
     render() {
@@ -156,5 +154,3 @@ class HistoryChart extends Component {
 }
 
 export default HistoryChart;
-
-

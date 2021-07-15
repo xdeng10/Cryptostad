@@ -3,7 +3,7 @@ import './NavBar.css';
 import logo from './coinLogo.png';
 import { Link } from 'react-router-dom';
 
-class About extends Component {
+class NavBar extends Component {
     render() {
         return (
             <nav className="nav-container">
@@ -14,16 +14,19 @@ class About extends Component {
                     </div>
                 </Link>
 
-                <div className="menu-container v-mid w-80 tr">
+                <div className="menu-container">
                     <Link className="page-name" to="/cryptomarket" title="CryptoMarket">Crypto Market</Link>
-                    <Link className="page-name" to="/about" title="About">About us</Link>
+                    {/*<Link className="page-name" to="/about" title="About">About us</Link>*/}
                     <Link className="page-name" to="/portfolio" title="Portfolio">Portfolio</Link>
-
-                    <Link className="page-name signin-button" to="/signin" title="signin">Sign in</Link>
+                    {this.props.userSignedIn ? 
+                        <Link className="page-name signin-button" to="/" title="Sign Out" onClick={this.props.signout}>Sign out</Link>
+                        :
+                        <Link className="page-name signin-button" to="/signin" title="Sign In">Sign in</Link>
+                    }
                 </div>
             </nav>
         );
     }
 }
 
-export default About;
+export default NavBar;

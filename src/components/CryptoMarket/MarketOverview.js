@@ -52,7 +52,7 @@ class MarketOverview extends Component {
 
     fetchMarketList() {
         this.setLoading(true);
-        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=25&page=${this.state.pageNumber}&sparkline=false`)
+        axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=cad&order=${this.state.order}&per_page=100&page=${this.state.pageNumber}&sparkline=false`)
             .then(res => {
                 if (res.data === []) {
                     this.setMorePage(false);

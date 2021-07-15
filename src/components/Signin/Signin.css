@@ -84,3 +84,7 @@
 .new-signup > .new-signup-link:active{
     color: blue;
 }
+
+.red{
+    color: red;
+}

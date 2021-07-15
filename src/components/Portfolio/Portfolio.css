@@ -1,0 +1,17 @@
+.regist-div{
+    margin: 5rem 2rem 0 2rem;
+}
+.regist-offer{
+    table-layout:fixed;
+    width:100%;
+    display: block;
+    overflow: auto;
+}
+.regist-offer tbody{
+    width: 100%;
+    display: table;
+}
+
+.regist-offer img{
+    width: 100%;
+}

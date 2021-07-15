@@ -40,6 +40,9 @@
 /* Page Direction */
 .menu-container{
     display: table-cell;
+    vertical-align: middle; 
+    width:  80%;
+    text-align: right; 
 }
 
 .page-name {
